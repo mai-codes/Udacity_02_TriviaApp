@@ -132,7 +132,7 @@ def create_app(test_config=None):
           question.insert()
 
           selection = Question.query.order_by(Question.id).all()
-          current_questions = paginate_books(request, selection)
+          current_questions = paginate_questions(request, selection)
 
           return jsonify({
             'success': True,
@@ -158,7 +158,6 @@ def create_app(test_config=None):
   @app.route('/questions/search', methods=['POST'])
   def search_questions():
     body = request.get_json()
-
     search_term = body.get('searchTerm', None)
 
     if search_term:
@@ -166,13 +165,13 @@ def create_app(test_config=None):
 
       return jsonify({
         'success': True,
-        'questions': [question.format() for question in search_results],
+        'questions': [Question.format() for question in search_results],
         'total_questions': len(search_results),
         'current_category': None
       })
 
       abort(404)
-      
+
   '''
   @TODO: 
   Create a GET endpoint to get questions based on category. 
@@ -181,6 +180,20 @@ def create_app(test_config=None):
   categories in the left column will cause only questions of that 
   category to be shown. 
   '''
+  @app.route('/categories/<int:category_id>/questions', methods=['GET'])
+  def get_questions_by_category(category_id):
+    try:
+        questions = Question.query.filter(Question.category == str(category_id)).all()
+
+        return jsonify({
+          'success': True,
+          'questions': [question.format() for question in questions],
+          'total_questions': len(questions),
+          'current_category': category_id
+        })
+
+    except:
+      abort(404)
 
 
   '''
