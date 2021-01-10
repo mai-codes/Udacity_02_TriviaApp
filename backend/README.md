@@ -82,6 +82,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Request example: curl http://127.0.0.1:5000/categories </br>
 
 Example response:
+```
 {
   "categories": {
     "1": "Science", 
@@ -93,6 +94,7 @@ Example response:
   }, 
   "success": true
 }
+```
 
 #### GET \questions?page=<page_number> 
 
@@ -101,6 +103,7 @@ Example response:
 - Request example (with page number): curl http://127.0.0.1:5000/questions?page=2 </br>
 
 Example response:
+```
 {
  "questions": [
    {
@@ -121,6 +124,7 @@ Example response:
  "success": true, 
  "total_questions": 2
 }
+```
 
 #### DELETE /questions/<question_id> 
 
@@ -128,13 +132,103 @@ Example response:
 - Request example: curl http://127.0.0.1:5000/questions 
 
 Example response:
+```
 {
   "deleted": "28", 
   "success": true
 }
+```
+#### POST /questions
 
+- Creates a new question or returns search results.
+- Request example: `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{"question": "Which planet is the hottest in the solar system", "answer": "Venus", "difficulty": 3, "category": "3"}
 
+Example response: 
+```
+{
+    "questions": [
+        {
+            "answer": "Apollo 13", 
+            "category": 5, 
+            "difficulty": 4, 
+            "id": 2, 
+            "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+        }, 
+        {
+            "answer": "Tom Cruise", 
+            "category": 5, 
+            "difficulty": 4, 
+            "id": 4, 
+            "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        }, 
+        {
+            "answer": "Venus", 
+            "category": 3, 
+            "difficulty": 3, 
+            "id": 9, 
+            "question": "Which planet is the hottest in the solar system"
+        }, 
+        
+    ], 
+    "success": true, 
+    "total_questions": 20
+}
+```
+#### GET /categories/\<int:id\>/questions
 
+- Gets questions by category id using url parameters.
+- Returns JSON object with paginated matching questions.
+- Request example: `curl http://127.0.0.1:5000/categories/1/questions`<br>
+Example response:
+```
+{
+    "current_category": "Science", 
+    "questions": [
+        {
+            "answer": "The Liver", 
+            "category": 1, 
+            "difficulty": 4, 
+            "id": 20, 
+            "question": "What is the heaviest organ in the human body?"
+        }, 
+        {
+            "answer": "Alexander Fleming", 
+            "category": 1, 
+            "difficulty": 3, 
+            "id": 21, 
+            "question": "Who discovered penicillin?"
+        }, 
+        {
+            "answer": "Blood", 
+            "category": 1, 
+            "difficulty": 4, 
+            "id": 22, 
+            "question": "Hematology is a branch of medicine involving the study of what?"
+        }
+    ], 
+    "success": true, 
+    "total_questions": 18
+}
+```
+
+#### POST /quizzes
+
+- Allows users to play the quiz game.
+- Uses JSON request parameters of category and previous questions.
+- Request example:  `curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [20, 21], "quiz_category": {"type": "Science", "id": "1"}}'`<br>
+Example response:
+```
+{
+    "question": {
+        "answer": "Blood", 
+        "category": 1, 
+        "difficulty": 4, 
+        "id": 22, 
+        "question": "Hematology is a branch of medicine involving the study of what?"
+    }, 
+    "success": true
+}
+```
 
 ## Testing
 To run the tests, run
