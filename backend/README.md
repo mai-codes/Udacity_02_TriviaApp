@@ -66,20 +66,20 @@ One note before you delve into your tasks: for each endpoint you are expected to
 8. Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions. 
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
-#### API Reference
+## API Reference
 
-## Getting Started
+### Getting Started
 
 - Base URL: Currently this application is only hosted locally. The backend is hosted at http://127.0.0.1:5000/
 
-## Error Handling
+### Error Handling
 
-## Endpoints
+### Endpoints
 
-# GET \categories 
+#### GET \categories 
 
 - Fetches a dictionary of all available categories
-- Request example: curl http://127.0.0.1:5000/categories
+- Request example: curl http://127.0.0.1:5000/categories </br>
 
 Example response:
 {
@@ -94,11 +94,11 @@ Example response:
   "success": true
 }
 
-# GET \questions?page=<page_number> 
+#### GET \questions?page=<page_number> 
 
 - Fetches a paginated dictionary of questions in all available categories
 - Request example (without page number): curl http://127.0.0.1:5000/questions 
-- Request example (with page number): curl http://127.0.0.1:5000/questions?page=2
+- Request example (with page number): curl http://127.0.0.1:5000/questions?page=2 </br>
 
 Example response:
 {
@@ -122,7 +122,7 @@ Example response:
  "total_questions": 2
 }
 
-# DELETE /questions/<question_id> 
+#### DELETE /questions/<question_id> 
 
 - Delete an existing questions from the repository of available questions
 - Request example: curl http://127.0.0.1:5000/questions 
