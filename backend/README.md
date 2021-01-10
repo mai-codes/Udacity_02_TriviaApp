@@ -74,12 +74,26 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 ### Error Handling
 
+Errors are returned as JSON in the following format (below 404 shown for reference):<br>
+```
+{
+    "success": False,
+    "error": 404,
+    "message": "resource not found"
+}
+```
+The API will return the following three types of:
+
+- 400 – bad request
+- 404 – resource not found
+- 422 – unprocessable
+
 ### Endpoints
 
 #### GET \categories 
 
 - Fetches a dictionary of all available categories
-- Request example: curl http://127.0.0.1:5000/categories </br>
+- Request example: `curl http://127.0.0.1:5000/categories` </br>
 
 Example response:
 ```
@@ -99,8 +113,8 @@ Example response:
 #### GET \questions?page=<page_number> 
 
 - Fetches a paginated dictionary of questions in all available categories
-- Request example (without page number): curl http://127.0.0.1:5000/questions 
-- Request example (with page number): curl http://127.0.0.1:5000/questions?page=2 </br>
+- Request example (without page number): `curl http://127.0.0.1:5000/questions` 
+- Request example (with page number): `curl http://127.0.0.1:5000/questions?page=2` </br>
 
 Example response:
 ```
@@ -129,7 +143,7 @@ Example response:
 #### DELETE /questions/<question_id> 
 
 - Delete an existing questions from the repository of available questions
-- Request example: curl http://127.0.0.1:5000/questions 
+- Request example: `curl http://127.0.0.1:5000/questions`
 
 Example response:
 ```
@@ -141,7 +155,7 @@ Example response:
 #### POST /questions
 
 - Creates a new question or returns search results.
-- Request example: `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{"question": "Which planet is the hottest in the solar system", "answer": "Venus", "difficulty": 3, "category": "3"}
+- Request example: `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{"question": "Which planet is the hottest in the solar system", "answer": "Venus", "difficulty": 3, "category": "3"}`
 
 Example response: 
 ```
@@ -178,7 +192,7 @@ Example response:
 
 - Gets questions by category id using url parameters.
 - Returns JSON object with paginated matching questions.
-- Request example: `curl http://127.0.0.1:5000/categories/1/questions`<br>
+- Request example: `curl http://127.0.0.1:5000/categories/1/questions` <br>
 Example response:
 ```
 {
