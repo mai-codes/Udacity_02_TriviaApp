@@ -132,7 +132,7 @@ Example response:
      "category": 2, 
      "difficulty": 1, 
      "id": 16, 
-     "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+     "question": "Which Dutch graphic artist M C was a creator of optical illusions?"
    }
  ], 
  "success": true, 
@@ -143,7 +143,7 @@ Example response:
 #### DELETE /questions/<question_id> 
 
 - Delete an existing questions from the repository of available questions
-- Request example: `curl http://127.0.0.1:5000/questions`
+- Request example: `curl http://127.0.0.1:5000/questions/8 -X DELETE`
 
 Example response:
 ```
@@ -154,7 +154,7 @@ Example response:
 ```
 #### POST /questions
 
-- Creates a new question or returns search results.
+- Creates a new question 
 - Request example: `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{"question": "Which planet is the hottest in the solar system", "answer": "Venus", "difficulty": 3, "category": "3"}`
 
 Example response: 
@@ -188,11 +188,34 @@ Example response:
     "total_questions": 20
 }
 ```
+
+#### POST /questions with search term
+
+- Returns search results
+- Request example: `curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"search_term": "peanut"}'` </br>
+
+Example response:
+```
+{
+  "questions": [
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 45
+}
+```
+
 #### GET /categories/\<int:id\>/questions
 
 - Gets questions by category id using url parameters.
 - Returns JSON object with paginated matching questions.
-- Request example: `curl http://127.0.0.1:5000/categories/1/questions` <br>
+- Request example: `curl http://127.0.0.1:5000/categories/1/questions` </br>
 Example response:
 ```
 {
